@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css"
+      rel="stylesheet"
+    />
+    <title><%= title %></title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const userId = "<%= session.userId %>";
+        fetch(`/api/studens/${userId}`, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const tableBody = document.getElementById("tableNotes");
+
+            data.forEach((item) => {
+              const row = document.createElement("tr");
+
+              const practica = document.createElement("td");
+              practica.textContent = item.nombre;
+              row.appendChild(practica);
+
+              const materia = document.createElement("td");
+              materia.textContent = item.materia;
+              row.appendChild(materia);
+
+              const notas = document.createElement("td");
+              notas.textContent = item.nota;
+              row.appendChild(notas);
+
+              const retro = document.createElement("td");
+              retro.textContent = item.retroalimentacion;
+              row.appendChild(retro);
+
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            res.redirect("/");
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <header>
+      <nav class="navbar">
+        <h2 id="name_view"><%= name_view %></h2>
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">G</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">Guia 1</a></li>
+              <li class="dropdown-item"><a href="#">Guia 2</a></li>
+              <li class="dropdown-item"><a href="#">Guia 3</a></li>
+            </ul>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">U</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">Cambiar de Perfil</a></li>
+              <li class="dropdown-item"><a href="/logout">Salir</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="principal">
+        <table id="tableNotes">
+          <thead>
+            <tr>
+              <th>Practica</th>
+              <th>Materia</th>
+              <th>Notas</th>
+              <th>Retroalimentacion</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="secundary">
+        <button class="btn"><a href="/terminal">Terminal</a></button>
+        <button class="btn"><a href="/editText">Editor de Texto</a></button>
+        <button class="btn"><a href="/notaStudent">Notas</a></button>
+      </section>
+    </main>
+    <script src="/js/index.js"></script>
+  </body>
+</html>

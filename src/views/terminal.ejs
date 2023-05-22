@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css"
+      rel="stylesheet"
+    />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <header>
+      <nav class="navbar">
+        <h2 id="name_view"><%= name_view %></h2>
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">G</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">Guia 1</a></li>
+              <li class="dropdown-item"><a href="#">Guia 2</a></li>
+              <li class="dropdown-item"><a href="#">Guia 3</a></li>
+            </ul>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">U</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">Cambiar de Perfil</a></li>
+              <li class="dropdown-item"><a href="/logout">Salir</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="principal">
+        <iframe src="https://trinket.io/embed/python3/29606dcc83?start=result" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+      </section>
+
+      <section class="secundary">
+          <button class="btn"><a href="/terminal">Terminal</a></button>
+          <button class="btn"><a href="/editText">Editor de Texto</a></button>
+          <button class="btn"><a href="/notaStudent">Notas</a></button>
+      </section>
+    <script src="/js/index.js"></script>
+  </body>
+</html>

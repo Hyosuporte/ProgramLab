@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css"
+      rel="stylesheet"
+    />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <header>
+      <nav class="navbar">
+        <h2 id="name_view"><%= name_view %></h2>
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">N</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">opcion 1</a></li>
+              <li class="dropdown-item"><a href="#">opcion 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">G</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">Guia 1</a></li>
+              <li class="dropdown-item"><a href="#">Guia 2</a></li>
+              <li class="dropdown-item"><a href="#">Guia 3</a></li>
+            </ul>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="navbar-link circle">U</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="#">Cambiar de Perfil</a></li>
+              <li class="dropdown-item"><a href="/logout">Salir</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="principal">
+        <section>
+          <select id="list-studens" onchange="studenNote(this.value)">
+            <option value="">Estudiantes</option>
+          </select>
+        </section>
+        <section>
+          <select id="list-pract" onchange="cargarInforme(this)" >
+            <option value="">Practicas</option>
+          </select>
+          <p id="pInforme" ></p>
+        </section>
+      </div>
+      <section class="secundary">
+        <section>
+          <input type="number" name="nota-Pract" id="nota-Pract" placeholder="Nota" />
+          <textarea
+            name="retro-notas"
+            id="reto-notas"
+            cols="20"
+            rows="15"
+          ></textarea>
+        </section>
+        <button class="btn" onclick="riseNote()">Guardar</button>
+        <button class="btn"><a href="">Siguiente</a></button>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="/js/index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const selectElement = document.getElementById("list-studens");
+        fetch("/api/studens/listStudens", {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((item) => {
+              const option = document.createElement("option");
+              option.value = item.id;
+              option.textContent = item.last_name;
+              selectElement.appendChild(option);
+            });
+          })
+          .catch((error) => {});
+      });
+    </script>
+  </body>
+</html>

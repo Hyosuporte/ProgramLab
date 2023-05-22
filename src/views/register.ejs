@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <main>
+      <div id="logo">
+        <img src="/img/logo.png" alt="foto de login" />
+      </div>
+      <form id="frmRegister" method="POST" enctype="application/json">
+        <input
+          type="text"
+          placeholder="Last Name"
+          name="last_Name"
+          id="last_Name"
+        />
+        <input type="text" placeholder="Email" name="email" id="email" />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          id="password"
+        />
+        <button type="submit">Register</button><br />
+        <a href="/">Login</a>
+      </form>
+    </main>
+    <script>
+      document
+        .getElementById("frmRegister")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(document.forms.frmRegister);
+          const datosDelFormulario = {};
+          for (let [clave, valor] of formData.entries()) {
+            datosDelFormulario[clave] = valor;
+          }
+
+          fetch("/api/studens/", {
+            method: "POST",
+            body: JSON.stringify(datosDelFormulario),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              if (response.status === 201) {
+                window.location.href = "/";
+              } else {
+                throw new Error("Error en la solicitud");
+              }
+            })
+            .catch((error) => {
+              // Manejar el error
+              console.error(error);
+            });
+        });
+    </script>
+  </body>
+</html>

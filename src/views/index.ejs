@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <main>
+      <div id="logo">
+        <img src="/img/logo.png" alt="foto de login">
+      </div>
+      <form action="/login" method="post">
+        <input type="text" placeholder="User" name="username" >
+        <input type="password" placeholder="Password" name="password" >
+        <button type="submit">Login</button><br>
+        <a href="/register" >Registrarse</a>
+      </form>
+    </main>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
