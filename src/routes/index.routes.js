@@ -1,5 +1,6 @@
 import { Router } from "express";
 import bcryptjs from "bcryptjs";
+import axios from "axios";
 
 import studensRouter from "./studens.routes.js";
 import teacherRouter from "./teacher.routes.js";
@@ -60,17 +61,62 @@ router.post("/login", async (req, res) => {
           req.session.userId = rows[0].id;
           req.session.username = rows[0].last_name;
           req.session.rol = rows[0].table_name;
-          res.redirect("studens");
+          axios
+            .post(
+              "https://www.google.com/recaptcha/api/siteverify?secret=6LfMWj4mAAAAAEquljn9YK93BJv9eM11kPixgl95&response=" +
+                req.body["g-recaptcha-response"]
+            )
+            .then((response) => {
+              const data = response.data;
+              if (data.success) {
+                res.redirect("studens");
+              } else {
+                return res.status(400).json({ message: "Captcha Invalid" });
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         } else if (rows[0].table_name == "teachers") {
           req.session.userId = rows[0].id;
           req.session.username = rows[0].last_name;
           req.session.rol = rows[0].table_name;
-          res.redirect("teachers");
+          axios
+            .post(
+              "https://www.google.com/recaptcha/api/siteverify?secret=6LfMWj4mAAAAAEquljn9YK93BJv9eM11kPixgl95&response=" +
+                req.body["g-recaptcha-response"]
+            )
+            .then((response) => {
+              const data = response.data;
+              if (data.success) {
+                res.redirect("teachers");
+              } else {
+                return res.status(400).json({ message: "Captcha Invalid" });
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         } else {
           req.session.userId = rows[0].id;
           req.session.username = rows[0].last_name;
           req.session.rol = rows[0].table_name;
-          res.redirect("manager");
+          axios
+            .post(
+              "https://www.google.com/recaptcha/api/siteverify?secret=6LfMWj4mAAAAAEquljn9YK93BJv9eM11kPixgl95&response=" +
+                req.body["g-recaptcha-response"]
+            )
+            .then((response) => {
+              const data = response.data;
+              if (data.success) {
+                res.redirect("manager");
+              } else {
+                return res.status(400).json({ message: "Captcha Invalid" });
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         }
       } else {
         return res.status(400).json({ message: "Password Invalid" });

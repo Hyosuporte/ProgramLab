@@ -234,3 +234,24 @@ function cargarInforme(object) {
   const p = document.getElementById("pInforme");
   p.textContent = select.getAttribute("data-report");
 }
+
+function login() {
+  const formData = new FormData(document.forms.frmLogin);
+  const datosDelFormulario = {};
+  for (let [clave, valor] of formData.entries()) {
+    datosDelFormulario[clave] = valor;
+  }
+
+  fetch("/login", {
+    method: "POST",
+    body: JSON.stringify(datosDelFormulario),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {})
+    .catch((error) => {
+      console.error(error);
+    });
+}
