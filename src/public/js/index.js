@@ -1,70 +1,185 @@
-document
-  .getElementById("frmNewStuden")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
+if (document.getElementById("frmNewStuden") != null) {
+  document
+    .getElementById("frmNewStuden")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    const formData = new FormData(document.forms.frmNewStuden);
-    const datosDelFormulario = {};
-    for (let [clave, valor] of formData.entries()) {
-      datosDelFormulario[clave] = valor;
-    }
+      const formData = new FormData(document.forms.frmNewStuden);
+      const datosDelFormulario = {};
+      for (let [clave, valor] of formData.entries()) {
+        datosDelFormulario[clave] = valor;
+      }
 
-    fetch("/api/studens/", {
-      method: "POST",
-      body: JSON.stringify(datosDelFormulario),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        ocultarForm("form-studens");
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: data.message,
-          showConfirmButton: false,
-          timer: 2500,
-        });
+      fetch("/api/studens/", {
+        method: "POST",
+        body: JSON.stringify(datosDelFormulario),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  });
-
-document
-  .getElementById("frmNewTeacher")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const formData = new FormData(document.forms.frmNewTeacher);
-    const datosDelFormulario = {};
-    for (let [clave, valor] of formData.entries()) {
-      datosDelFormulario[clave] = valor;
-    }
-
-    fetch("/api/teachers/", {
-      method: "POST",
-      body: JSON.stringify(datosDelFormulario),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        ocultarForm("form-teachers");
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: data.message,
-          showConfirmButton: false,
-          timer: 2500,
+        .then((response) => response.json())
+        .then((data) => {
+          ocultarForm("form-studens");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
         });
+    });
+}
+
+if (document.getElementById("frmNewTeacher") != null) {
+  document
+    .getElementById("frmNewTeacher")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(document.forms.frmNewTeacher);
+      const datosDelFormulario = {};
+      for (let [clave, valor] of formData.entries()) {
+        datosDelFormulario[clave] = valor;
+      }
+
+      fetch("/api/teachers/", {
+        method: "POST",
+        body: JSON.stringify(datosDelFormulario),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  });
+        .then((response) => response.json())
+        .then((data) => {
+          ocultarForm("form-teachers");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+}
+
+if (document.getElementById("frmEditStuden") != null) {
+  document
+    .getElementById("frmEditStuden")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const userId = document.getElementById("userId").value;
+      const formData = new FormData(document.forms.frmEditStuden);
+      const datosDelFormulario = {};
+      for (let [clave, valor] of formData.entries()) {
+        datosDelFormulario[clave] = valor;
+      }
+
+      fetch(`/api/studens/${userId}`, {
+        method: "PUT",
+        body: JSON.stringify(datosDelFormulario),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          ocultarForm("form-perfil");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+}
+
+if (document.getElementById("frmEditManager") != null) {
+  document
+    .getElementById("frmEditManager")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const userId = document.getElementById("userId").value;
+      const formData = new FormData(document.forms.frmEditManager);
+      const datosDelFormulario = {};
+      for (let [clave, valor] of formData.entries()) {
+        datosDelFormulario[clave] = valor;
+      }
+
+      fetch(`/api/manager/${userId}`, {
+        method: "PUT",
+        body: JSON.stringify(datosDelFormulario),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          ocultarForm("form-perfil");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+}
+
+if (document.getElementById("frmEditTeacher") != null) {
+  document
+    .getElementById("frmEditTeacher")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const userId = document.getElementById("userId").value;
+      const formData = new FormData(document.forms.frmEditTeacher);
+      const datosDelFormulario = {};
+      for (let [clave, valor] of formData.entries()) {
+        datosDelFormulario[clave] = valor;
+      }
+
+      fetch(`/api/teachers/${userId}`, {
+        method: "PUT",
+        body: JSON.stringify(datosDelFormulario),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          ocultarForm("form-perfil");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+}
 
 function ocultarForm(name) {
   form = document.getElementById(name).style.display = "none";
@@ -77,6 +192,7 @@ function showForm(name) {
   form.children[0].children[0].value = "";
   form.children[0].children[1].value = "";
   form.children[0].children[2].value = "";
+  form.children[0].children[3].value = "";
   document.getElementById("overlay").style.display = "block";
 }
 

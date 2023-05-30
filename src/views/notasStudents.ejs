@@ -54,7 +54,7 @@
 </head>
 
 <body>
-  <div id="overlay"></div>
+  <div id="overlay" onclick="ocultarForm('form-perfil')"></div>
   <header>
     <nav class="navbar">
       <h2 id="name_view">
@@ -72,7 +72,7 @@
         <li class="navbar-item">
           <a href="#" class="navbar-link circle">U</a>
           <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Cambiar de Perfil</a></li>
+            <li class="dropdown-item"><a onclick="showForm('form-perfil')">Cambiar de Perfil</a></li>
             <li class="dropdown-item"><a href="/logout">Salir</a></li>
           </ul>
         </li>
@@ -102,6 +102,16 @@
       <button class="btn"><a href="/notasStudents">Notas</a></button>
       <button class="btn"><a href="/uploadPrac">Subir Practica</a></button>
     </section>
+    <div id="form-perfil" name="form-perfil" class="form-container">
+      <form id="frmEditTeacher" enctype="application/json">
+        <input type="text" placeholder="Last Name" name="last_Name" />
+        <input type="text" placeholder="Email" name="email" />
+        <input type="password" placeholder="Password" name="password" />
+        <input type="password" placeholder="Repeat password" name="passwordTry" />
+        <input type="hidden" value="<%= session.userId %>" id="userId" />
+        <button type="submit">Register</button><br />
+      </form>
+    </div>
   </main>
   <script src="/js/index.js"></script>
 </body>

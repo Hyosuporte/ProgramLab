@@ -63,7 +63,8 @@ export const createStuden = async (req, res) => {
 export const updateStuden = async (req, res) => {
   try {
     const { id } = req.params;
-    const { retro, nota, informe, practId } = req.body;
+    const { retro, nota, informe, practId, last_Name, email, password } =
+      req.body;
     if (informe) {
       const [result] = await pool.query(
         "UPDATE notas SET informe = ?   WHERE id_student = ?",
@@ -78,7 +79,7 @@ export const updateStuden = async (req, res) => {
       ]);
 
       return res.status(200).json(rows[0]);
-    } else if (retro != "" && nota != "") {
+    } else if (retro != null && nota != null) {
       const [result] = await pool.query(
         "UPDATE notas SET nota=?,retroalimentacion= ? WHERE id_practica = ? AND id_student = ?",
         [nota, retro, practId, id]
@@ -92,6 +93,21 @@ export const updateStuden = async (req, res) => {
       ]);
 
       return res.status(200).json(rows[0]);
+    } else {
+      const hashedPassword = await bcryptjs.hash(password, 8);
+      const [result] = await pool.query(
+        "UPDATE studens SET last_name=?,email=?,password=? WHERE id = ?",
+        [last_Name, email, hashedPassword, id]
+      );
+
+      if (result.affectedRows === 0)
+        return res.status(404).json({ message: "Studen not found" });
+
+      const [rows] = await pool.query("SELECT * FROM studens WHERE id = ?", [
+        id,
+      ]);
+
+      return res.status(200).json({ message: "profile updated successfully" });
     }
   } catch (error) {
     return res.status(500).json({ message: "Something goes wrong" });

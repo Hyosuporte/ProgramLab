@@ -12,7 +12,7 @@ const router = Router();
 router.get("/", getStudens);
 router.get("/:id", getStuden);
 router.post("/", createStuden);
-router.patch("/:id", updateStuden);
+router.put("/:id", updateStuden);
 router.delete("/:id", deleteStuden);
 
 export default router;

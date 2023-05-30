@@ -1,4 +1,5 @@
 import { pool } from "../config/db.js";
+import bcryptjs from "bcryptjs";
 
 export const getManagers = async (req, res) => {
   try {
@@ -55,16 +56,19 @@ export const createManager = async (req, res) => {
 export const updateManager = async (req, res) => {
   try {
     const { id } = req.params;
-    const {} = req.body;
-
-    const [result] = await pool.query("UPDATE manager SET  WHERE id = ?", []);
+    const { last_Name, email, password } = req.body;
+    const hashedPassword = await bcryptjs.hash(password, 8);
+    const [result] = await pool.query(
+      "UPDATE manager SET last_name=?,email=?,password=? WHERE id=?",
+      [last_Name, email, hashedPassword, id]
+    );
 
     if (result.affectedRows === 0)
       return res.status(404).json({ message: "Manager not found" });
 
     const [rows] = await pool.query("SELECT * FROM Manager WHERE id = ?", [id]);
 
-    res.json(rows[0]);
+    return res.status(200).json({ message: "profile updated successfully" });
   } catch (error) {
     return res.status(500).json({ message: "Something goes wrong" });
   }

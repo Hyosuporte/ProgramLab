@@ -10,7 +10,7 @@ const router = Router();
 
 router.get("/", getManager);
 router.post("/", createManager);
-router.patch("/:id", updateManager);
+router.put("/:id", updateManager);
 router.delete("/:id", deleteManager);
 
 export default router;
